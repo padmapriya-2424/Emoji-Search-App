@@ -1,38 +1,292 @@
-.App {
-  text-align: center;
+/* Reset and base */
+* {
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* 🌈 Light theme (from your palette) */
+/*:root {
+  --bg: #ffffff;
+  --text: #1f2937;
+  --input-bg: #ffffff;
+  --input-border: #d1d5db;
+
+  --button-bg: #94a3b8;        
+  --button-bg-hover: #cbd5e1;  
+  --button-text: #1f2937;
+
+  --card-bg: #f9fafb;
+  --card-bg-hover: #f3f4f6;
+
+  --copy-bg: #fda4af;   
+  --copy-text: #9f1239; 
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+ 
+body.dark {
+  --bg: #1e293b;
+  --text: #f1f5f9;
+  --input-bg: #334155;
+  --input-border: #475569;
+
+  --button-bg: #0f766e;        
+  --button-bg-hover: #115e59;  
+  --button-text: #e0f2fe;
+
+  --card-bg: #334155;
+  --card-bg-hover: #475569;
+
+  --copy-bg: #fb7185;  
+  --copy-text: #fff1f2;
+}
+*/
+:root {
+  --bg: #fff9f9;
+  --text: #1a1a1a;
+
+  --input-bg: #ffffff;
+  --input-border: #a855f7; /* purple border */
+
+  --button-bg: linear-gradient(135deg, #f43f5e, #f97316, #facc15); /* pink → orange → yellow */
+  --button-bg-hover: linear-gradient(135deg, #06b6d4, #3b82f6, #9333ea); /* cyan → blue → violet */
+  --button-text: #ffffff;
+
+  --card-bg: #e0f2fe; /* light sky blue */
+  --card-bg-hover: #bae6fd; /* brighter sky */
+
+  --copy-bg: #fcd34d;  /* yellow */
+  --copy-text: #78350f; /* dark brown */
+}
+
+.dark {
+  --bg: #0a0f1f;
+  --text: #f8fafc;
+
+  --input-bg: #1e1e2e;
+  --input-border: #f472b6; /* pink border */
+
+  --button-bg: linear-gradient(135deg, #f43f5e, #f97316, #facc15); /* warm rainbow */
+  --button-bg-hover: linear-gradient(135deg, #22d3ee, #3b82f6, #9333ea); /* cool rainbow */
+  --button-text: #f1f5f9;
+
+  --card-bg: #1e293b;
+  --card-bg-hover: #334155;
+
+  --copy-bg: #10b981; /* green */
+  --copy-text: #ecfdf5; /* mint white */
+}
+
+/* Input focus (extra colorful glow) */
+input[type="text"]:focus {
+  outline: none;
+  border-color: #9333ea; /* violet */
+  box-shadow: 0 0 0 3px rgba(147, 51, 234, 0.3);
+}
+
+/* Active category button highlight */
+.category-buttons button.active {
+  background: linear-gradient(135deg, #06b6d4, #3b82f6, #9333ea); /* cyan → blue → violet */
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+
+/* Container */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.5rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+/* Header */
+header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+h1 {
+  font-size: 2rem;
+  margin: 0 0 0.5rem 0;
+}
+
+/* Dark mode toggle button */
+button.toggle-theme {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+}
+
+button.toggle-theme:hover {
+  background-color: var(--button-bg-hover);
+}
+
+/* Search input */
+input[type="text"] {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid var(--input-border);
+  border-radius: 0.5rem;
+  background-color: var(--input-bg);
+  color: var(--text);
+  transition: border-color 0.3s ease;
+  margin-bottom: 1.5rem;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: #fb7185; /* pink border */
+  box-shadow: 0 0 0 3px rgba(251, 113, 133, 0.3);
+}
+
+/* Category buttons */
+.category-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.category-buttons button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: #f3f4f6; /* light gray background */
+  color: #1a1a1a;      /* dark text */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Hover effect for inactive */
+.category-buttons button:hover {
+  background: #e5e7eb; /* slightly darker gray */
+}
+
+
+/* Copy feedback */
+.copy-feedback {
+  background-color: var(--copy-bg);
+  color: var(--copy-text);
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Recently used emojis */
+.recent-emojis {
+  margin-bottom: 1.5rem;
+}
+
+.recent-emojis h2 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.recent-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+  gap: 0.5rem;
+}
+
+.recent-item {
+  background-color: var(--card-bg);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  user-select: none;
+}
+
+.recent-item:hover {
+  background-color: var(--card-bg-hover);
+  transform: scale(1.1);
+}
+
+.recent-item .emoji {
+  font-size: 1.75rem;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.recent-item .name {
+  font-size: 0.75rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Emoji grid */
+.emoji-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 1rem;
+}
+
+.emoji-item {
+  background-color: var(--card-bg);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  user-select: none;
+}
+
+.emoji-item:hover {
+  background-color: var(--card-bg-hover);
+  transform: scale(1.05);
+}
+
+.emoji-item .emoji {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.emoji-item .name {
+  font-size: 0.8rem;
+  word-break: break-word;
+}
+
+/* Results count */
+.results-count {
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: var(--text);
+  opacity: 0.7;
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--text);
+  opacity: 0.6;
+  margin-top: 3rem;
+}
+
+/* Responsive tweaks */
+@media (max-width: 480px) {
+  .emoji-grid {
+    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
   }
 }
